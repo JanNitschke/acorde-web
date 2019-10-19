@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
-    "build" : "tsc",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jan Nitschke",
   "license": "ISC",
   "dependencies": {
-    "acorde": "file:../acorde"
+    "acorde": "git+https://github.com/JanNitschke/acorde.git"
   },
   "devDependencies": {
     "@types/node": "^12.11.1",
