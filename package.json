@@ -2,7 +2,7 @@
   "name": "acorde-web",
   "version": "1.0.0",
   "description": "ACtor wORkers in noDE - Multithreaded nodejs actor library",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "tsc": "tsc",
     "build": "tsc",
@@ -16,5 +16,6 @@
   "devDependencies": {
     "@types/node": "^12.11.1",
     "typescript": "^3.6.4"
-  }
+  },
+  "types": "lib/mod.d.ts"
 }
