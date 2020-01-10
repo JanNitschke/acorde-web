@@ -19,10 +19,16 @@ export class WebServer{
         this.server = http.createServer(this.requestHandler.bind(this));
         this.routingAddr = routingAddr;
     }
-
-    static async create(dirname: string, routes: Array<Route>, workercount ?:number): Promise<WebServer>{
-        if(!workercount) workercount = os.cpus().length;
-        const o = await Orchestrator.create(workercount);
+    static async create(dirname: string, routes: Array<Route>, orchestrator ?:Orchestrator): Promise<WebServer>;
+    static async create(dirname: string, routes: Array<Route>, workercount ?:number): Promise<WebServer>;
+    static async create(dirname: string, routes: Array<Route>, workercountOrOrchestrator ?:number|Orchestrator): Promise<WebServer>{
+        let o: any;
+        if(!workercountOrOrchestrator) workercountOrOrchestrator = os.cpus().length;
+        if(typeof workercountOrOrchestrator === "number"){
+            o = await Orchestrator.create(workercountOrOrchestrator);
+        }else{
+            o = workercountOrOrchestrator;
+        }
 
         const intRoutes: Array<IntRoute> = await Promise.all(routes.map(async(route, index) => {
             const actorAddr = await ((route.parallel)?o.addActorGroup(path.join(dirname, route.filepath), route.options):o.addActor(path.join(dirname, route.filepath), route.options));
@@ -80,10 +86,7 @@ export class WebServer{
                 console.error(ex);
                 (response as any).statusCode = 500;
                 response.end("internal server error");
-            }
-           
-    
-    
+            }    
         });
         
     }
