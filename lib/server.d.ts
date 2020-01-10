@@ -7,6 +7,7 @@ export declare class WebServer {
     server: http.Server;
     routingAddr: Addr;
     private constructor();
+    static create(dirname: string, routes: Array<Route>, orchestrator?: Orchestrator): Promise<WebServer>;
     static create(dirname: string, routes: Array<Route>, workercount?: number): Promise<WebServer>;
     listen(port: number): Promise<void>;
     requestHandler(request: http.IncomingMessage, response: http.OutgoingMessage): Promise<void>;
